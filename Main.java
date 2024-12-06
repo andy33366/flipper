@@ -13,7 +13,8 @@ public class Main {
 	
 		Scanner input = new Scanner(System.in);
 
-		//constructs an array of empty card objects
+		//creates an array of empty card objects
+		//each card is constructed in newCard()
 		Card[] cardArray = new Card[30]//max number of cards is 30
 						
 		String userInput = " ";
@@ -35,7 +36,7 @@ public class Main {
 				       return;
 				       break;
 				case ":s":
-				       shuffle();
+				       shuffle(cardArray);
 					break;
 				case ":c":
 				       newCard(cardIndex);
@@ -44,15 +45,15 @@ public class Main {
 				case ":p":
 					System.out.print("Enter card index: ");
 				       int i = input.nextLine();
-				       readCard(index);
+				       readCard(cardIndex);
 				       break;
 				case ":a":
-				       printAll();
+				       printAll(cardArray);
 			}
 		}
 	}
 	//creates new card
-	public void newCard(index){
+	public void newCard(int index){
 	
 		String front;
 		String back;
@@ -64,6 +65,10 @@ public class Main {
 		cardArray[index] = new Card(front, back, index);
 	}
 	//removes a card
+	public void removeCard(int index){
+	
+		cardArray[index] = new Card();//replaces cardArray[index] with an empty card object
+	}
 	//reads a card
 	public void readCard(index){
 	
@@ -78,5 +83,19 @@ public class Main {
 		}
 	}
 	//shuffles cards
+	public void shuffle(){
+	
+		//big loop 
+		//prints menu :q to exit shuffle mode :n for next card, :b for previous card, :p to print points
+		//creates a randomized array of of currently used indexes 
+		//
+		//loops through the random array
+		//once loop ends goes back to big loop and creates a new random array
+		//
+	}
 	//prints all cards
+	public void printAll(){
+	
+		//for i in cardArray printCard()
+	}
 }

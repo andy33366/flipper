@@ -52,8 +52,8 @@ public class Card{
 	public Boolean flip(String userAnswer){
 	
 
-		//if userAnswer == cardBack --> correct so +1 point
-		if (userAnswer.equals(this.cardBack)){
+		//if userAnswer == back --> correct so +1 point
+		if (userAnswer.equals(this.back)){
 			System.out.println("Correct! +1 point");
 
 			return true;
@@ -61,7 +61,7 @@ public class Card{
 		else{
 		
 			System.out.println("Wrong! The correct answer should be:\n");
-			//System.out.println(); //prints back of the card
+			System.out.println(this.back); //prints back of the card
 			return false;
 		}
 	}
@@ -69,6 +69,7 @@ public class Card{
 	public String getFront(){
 	
 		System.out.println(this.front);
+		return this.front;
 	}
 	//
 }
