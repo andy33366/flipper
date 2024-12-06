@@ -28,7 +28,7 @@ public class Card{
 	
 		front = " ";//default is empty string
 		back = " ";
-		index = 0;
+		index = -1;
 
 		//assigns the card index
 		//currentIndex ++;
@@ -51,25 +51,26 @@ public class Card{
 	//flip card(check answer)
 	public Boolean flip(String userAnswer){
 	
-
 		//if userAnswer == back --> correct so +1 point
 		if (userAnswer.equals(this.back)){
-			System.out.println("Correct! +1 point");
+			System.out.println("\nCorrect!\n");
 
 			return true;
 		}
 		else{
 		
-			System.out.println("Wrong! The correct answer should be:\n");
-			System.out.println(this.back); //prints back of the card
+			System.out.println("\nWrong! The correct answer should be:\n");
+			System.out.println(this.back+"\n"); //prints back of the card
 			return false;
 		}
 	}
 	//getFront
 	public String getFront(){
 	
-		System.out.println(this.front);
 		return this.front;
 	}
-	//
+	//getBack
+	public String getBack(){
+		return this.back;
+	}
 }
