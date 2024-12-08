@@ -69,7 +69,7 @@ public class Main {
 			//PROBLEM: how do I create variables programmatically?
 		//}
 
-		String blank = " ";
+		String blank = "This card is blank, please use :c to create a card";
 		Card card0 = new Card(blank, blank, 0);
 		cardArray[0] = card0;
 		Card card1 = new Card(blank, blank, 1);
@@ -128,12 +128,11 @@ public class Main {
 		String userInput = " ";
 		int[] shuffleArray = new int[10];
 		
-		System.out.println("\nEnter :q to exit shuffle mode\nEnter :n to skip to next card\nEnter :b for previous card\nEnter :p to print your current points\n");
+		System.out.println("\nEnter :q to exit shuffle mode\nEnter :n to skip to next card\nEnter :p to print your current points\n");
 
 		//big loop
 		while (!userInput.equals(":q")){ 
 			
-			System.out.println("You currently have "+points+" points! Press enter to continue or :q to exit shuffle mode.");
 			userInput = input.nextLine();
 			if (userInput.equals(":q")){
 				return;
@@ -158,32 +157,30 @@ public class Main {
 			
 					case ":q":
 					       return;
+					default :
+					       //flip card
+					       if(cardArray[shuffleArray[j]].flip(userInput)){
+						       points++;
+					       }
+					       break;
+
 					case ":n":
 					       //next card
 	
 						break;
-					case ":b":
-					       //previous card
-					       j--;
-					       j--;
-					       break;
 					case ":p":
 					       //print current points
 					       System.out.println("\nYou currently have "+points+" points!");
 					  
-					default :
-					       //flip card
-					       if(cardArray[j].flip(userInput)){
-						       points++;
-					       }
-					       break;
 				}
 			
 
 			}	
+		
 			if (userInput.equals(":q")){
 				return;
 			}
+			System.out.println("You currently have "+points+" points! Press enter to continue or :q to exit shuffle mode.");
 
 		//once loop ends goes back to big loop and creates a new random array
 		//
