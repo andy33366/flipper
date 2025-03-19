@@ -13,6 +13,9 @@ class Card:
     def getChoices(self):
         return self.choices
 
+    def getAnswer(self):
+        return self.answer
+
     def setQuestion(self, question):
         self.question = question
 
