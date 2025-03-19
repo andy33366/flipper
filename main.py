@@ -1,6 +1,19 @@
 from Card import Card
 
 def main():
+    cardArray = deckMaker()
+    for i in cardArray:
+        print(i.getQuestion())
+        print(i.getChoices())
+        print(i.getAnswer())
+
+
+    #while stop != true : show card + check answer
+
+
+
+def deckMaker():
+    #makes the card deck
     cardArray = []
     
     #while stop != true : add cards to array
@@ -31,14 +44,8 @@ def main():
         cardArray.append(Card(question, choices, answer))
         if input("Enter \"!q\" to stop adding cards") == "!q":
             config = False
-    
-    for i in cardArray:
-        print(i.getQuestion())
-        print(i.getChoices())
-        print(i.getAnswer())
 
-
-    #while stop != true : show card + check answer
+    return cardArray
 
 
 main()
