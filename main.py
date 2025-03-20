@@ -9,6 +9,21 @@ def main():
 
 
     #while stop != true : show card + check answer
+    while choice != "!q":
+        #for each card in cardArray show q and check provided answer
+        for i in cardArray:
+            print(i.getQuestion())
+            menu = ""
+            for c in i.getChoices:
+                menu = menu + str(c) + " " + str(choices.index(c)) + "\n"
+            print(menu)
+            answer = int(input())
+            if i.checkAnswer(answer):
+                print("correct!")
+            else:
+                print("wrong!")
+            
+
 
 
 
