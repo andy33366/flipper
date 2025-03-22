@@ -1,4 +1,24 @@
 from Card import Card
+#from PyQt6.QtWidgets import QApplication, QWidget
+
+'''
+TODO: create Qt GUI
+
+import sys
+
+app = QApplication(sys.argv)
+
+window = QWidget()
+window.show()
+
+app.exec()
+
+'''
+
+
+'''
+TODO: split into client-side code and server-side code
+'''
 
 def main():
     cardArray = deckMaker()
@@ -9,12 +29,14 @@ def main():
 
 
     #while stop != true : show card + check answer
+    choice = ""
     while choice != "!q":
         #for each card in cardArray show q and check provided answer
         for i in cardArray:
             print(i.getQuestion())
             menu = ""
-            for c in i.getChoices:
+            choices = i.getChoices()
+            for c in choices:
                 menu = menu + str(c) + " " + str(choices.index(c)) + "\n"
             print(menu)
             answer = int(input())
@@ -22,6 +44,7 @@ def main():
                 print("correct!")
             else:
                 print("wrong!")
+                print(f"correct answer is {i.getAnswer()}")
             
 
 

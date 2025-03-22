@@ -23,8 +23,9 @@ class Card:
         self.choices = choices
 
     def checkAnswer(self, answer):
-        if (self.choices[self.answer] == answer):
+        if (self.choices[self.answer] == self.choices[answer]):
             return True
         else:
+            print(f"{self.choices[self.answer]} == {answer}")
             return False
         
