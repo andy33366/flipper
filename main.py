@@ -8,17 +8,40 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Flipper")
 
+        '''
+        gonna copy kahoot quiz builder UI:
+
+            type question
+
+            add answer choices (start with two, button to add more)
+            each answer choice has checkable button for correct answer
+            
+            button to save card
+
+            button to add new card
+
+        '''
+
+        #Button to create new card
         button = QPushButton("Add new card")
         button.setCheckable(True)
         button.clicked.connect(self.buttonClicked)
 
-        self.setMinimumSize(QSize(400, 300))
+        #button to set answer choice as correct
+        correctButton = QPushButton("correct")
+        correctButton.setCheckable(True)
+        correctButton.clicked.connect(self.correctButton)
 
+        #decides size, etc of main window
+        self.setMinimumSize(QSize(400, 300))
         self.setCentralWidget(button)
 
     def buttonClicked(self):
         print("clicked")
+        #
 
+    def correctButton(self, checked):
+        print("toggled" + checked)
 
     def main():
         cardArray = deckMaker()
