@@ -7,10 +7,17 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Flipper")
+
         button = QPushButton("Add new card")
+        button.setCheckable(True)
+        button.clicked.connect(self.buttonClicked)
+
         self.setMinimumSize(QSize(400, 300))
 
         self.setCentralWidget(button)
+
+    def buttonClicked(self):
+        print("clicked")
 
 
     def main():
