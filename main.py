@@ -1,51 +1,52 @@
 from Card import Card
-#from PyQt6.QtWidgets import QApplication, QWidget
-
-'''
-TODO: create Qt GUI
-
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton
 import sys
 
-app = QApplication(sys.argv)
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Flipper")
+        button = QPushButton("Add new card")
+        self.setMinimumSize(QSize(400, 300))
 
-window = QWidget()
-window.show()
+        self.setCentralWidget(button)
 
-app.exec()
 
-'''
+    def main():
+        cardArray = deckMaker()
+        for i in cardArray:
+            print(i.getQuestion())
+            print(i.getChoices())
+            print(i.getAnswer())
+
+
+        #while stop != true : show card + check answer
+        choice = ""
+        while choice != "!q":
+            #for each card in cardArray show q and check provided answer
+            for i in cardArray:
+                print(i.getQuestion())
+                menu = ""
+                choices = i.getChoices()
+                for c in choices:
+                    menu = menu + str(c) + " " + str(choices.index(c)) + "\n"
+                print(menu)
+                answer = int(input())
+                if i.checkAnswer(answer):
+                    print("correct!")
+                else:
+                    print("wrong!")
+                    print(f"correct answer is {i.getAnswer()}")
+                
+
+
+
 
 
 '''
 TODO: split into client-side code and server-side code
 '''
-
-def main():
-    cardArray = deckMaker()
-    for i in cardArray:
-        print(i.getQuestion())
-        print(i.getChoices())
-        print(i.getAnswer())
-
-
-    #while stop != true : show card + check answer
-    choice = ""
-    while choice != "!q":
-        #for each card in cardArray show q and check provided answer
-        for i in cardArray:
-            print(i.getQuestion())
-            menu = ""
-            choices = i.getChoices()
-            for c in choices:
-                menu = menu + str(c) + " " + str(choices.index(c)) + "\n"
-            print(menu)
-            answer = int(input())
-            if i.checkAnswer(answer):
-                print("correct!")
-            else:
-                print("wrong!")
-                print(f"correct answer is {i.getAnswer()}")
-            
 
 
 
@@ -85,5 +86,9 @@ def deckMaker():
 
     return cardArray
 
+app = QApplication(sys.argv)
+window = MainWindow()
+window.show()
 
-main()
+
+app.exec()
