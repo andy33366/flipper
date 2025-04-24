@@ -10,6 +10,8 @@ gonna copy kahoot quiz builder UI:
 
     button to add new card
 
+    DONEEEEEE
+
 '''
 
 # imports custom card class
@@ -22,57 +24,69 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         print("Initializing MainWindow")
-        self.setWindowTitle("Flashcard Quiz")
+        self.setWindowTitle("Flipper")
         self.setMinimumSize(QSize(400, 300))
 
         self.layout = QVBoxLayout()
 
+        #adds a line to the layout to enter a question
         self.questionInput = QLineEdit(self)
         self.questionInput.setPlaceholderText("Enter question")
         self.layout.addWidget(self.questionInput)
 
+        #array for the answer choices and which is correct
         self.choiceInputs = []
         self.choiceCheckboxes = []
 
+        #puts the choices in a grid
         self.choiceLayout = QGridLayout()
         self.layout.addLayout(self.choiceLayout)
 
+        #adds 2 choice inputs
         for i in range(2):
             self.addChoiceInput(i)
 
+        #when clicked, adds now choice input
         self.addChoiceButton = QPushButton("Add New Answer Choice", self)
         self.addChoiceButton.clicked.connect(self.addChoiceInput)
         self.layout.addWidget(self.addChoiceButton)
 
+        #when clicked adds the card to deck
         self.addCardButton = QPushButton("Add Card", self)
         self.addCardButton.clicked.connect(self.addCard)
         self.layout.addWidget(self.addCardButton)
 
+        #allows user to edit previous cards
         self.previousCardButton = QPushButton("Previous Card", self)
         self.previousCardButton.clicked.connect(self.previousCard)
         self.layout.addWidget(self.previousCardButton)
 
+        #when user is finished building deck
         self.doneButton = QPushButton("Done Building My Deck", self)
         self.doneButton.clicked.connect(self.finishDeckBuilding)
         self.layout.addWidget(self.doneButton)
 
+        #main widget
         self.centralWidget = QWidget()
         self.centralWidget.setLayout(self.layout)
         self.setCentralWidget(self.centralWidget)
 
+        #initializes card array
         self.cards = []
-        self.currentCardIndex = -1
+        self.currentCardIndex = 0
         print("MainWindow initialized")
 
     def addChoiceInput(self, index=None):
-        """Adds a new choice input field and checkbox to the layout."""
+        #adds a new choice input field and checkbox to the layout ony 2 - 5 choices allowed
         try:
             print("Adding choice input")
             if len(self.choiceInputs) < 5:
+                #create answer choice box and checkbox to say if it is correct
                 choiceInput = QLineEdit(self)
                 choiceInput.setPlaceholderText(f"Enter choice {len(self.choiceInputs) + 1}")
                 choiceCheckbox = QCheckBox("Correct", self)
 
+                #makes answer choices layout be in 2 columns
                 row = len(self.choiceInputs) // 2
                 col = len(self.choiceInputs) % 2
 
@@ -87,19 +101,23 @@ class MainWindow(QMainWindow):
             print(f"Error adding choice input: {e}")
 
     def addCard(self):
-        """Adds the card to the deck based on user input."""
+        #adds the card to the deck based on user input
         try:
             print("Adding card")
             question = self.questionInput.text()
+            #for every choice input the user added to the card, it adds the text to the choices list
             choices = [choiceInput.text() for choiceInput in self.choiceInputs]
+            
+            #checks if no checkboxes are checked/ adds indexes of checked box to answer
+            #[i for i, checkbox in enumerate(self.choiceCheckboxes) if checkbox.isChecked()]
             answer = next((i for i, checkbox in enumerate(self.choiceCheckboxes) if checkbox.isChecked()), None)
 
             if answer is not None:
                 card = Card(question, choices, answer)
-                if self.currentCardIndex == len(self.cards):
-                    self.cards.append(card)
-                else:
+                if self.currentCardIndex < len(self.cards):
                     self.cards[self.currentCardIndex] = card
+                else:
+                    self.cards.append(card)
                 self.resetInputs()
                 self.currentCardIndex = len(self.cards)
                 print(f"Added card: {question}, {choices}, {answer}")
@@ -107,6 +125,8 @@ class MainWindow(QMainWindow):
                 print("Please select the correct answer.")
         except IndexError as e:
             print(f"IndexError: {e}")
+            print(str(len(self.cards)))
+            print(str(self.currentCardIndex))
             self.cards.append(card)
             self.resetInputs()
             self.currentCardIndex = len(self.cards)
@@ -114,7 +134,7 @@ class MainWindow(QMainWindow):
             print(f"Error adding card: {e}")
 
     def resetInputs(self):
-        """Resets the input fields for a new card."""
+        #Resets the input fields for a new card
         try:
             print("Resetting inputs")
             self.questionInput.clear()
@@ -130,7 +150,7 @@ class MainWindow(QMainWindow):
             print(f"Error resetting inputs: {e}")
 
     def previousCard(self):
-        """Loads the previous card for editing."""
+        #Loads the previous card for editing
         try:
             print("Loading previous card")
             if self.currentCardIndex > 0:
