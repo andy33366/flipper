@@ -61,11 +61,11 @@ class DeckBuilder(QWidget):
             QMessageBox.warning(self, "Limit Reached", "You can only add up to 5 choices.")
             return
 
-				#creates 2 columns for a preety layout :)
+		#creates 2 columns for a preety layout :)
         row = len(self.choice_inputs) // 2
         col = (len(self.choice_inputs) % 2) * 2
 
-				#empty box for answer choice
+		#empty box for answer choice
         choice_input = QLineEdit()
         #setPlaceholderText says choice 1 or choice 2 etc
         choice_input.setPlaceholderText(f"Choice {len(self.choice_inputs) + 1}")
@@ -93,7 +93,7 @@ class DeckBuilder(QWidget):
 
         card = Card(question, choices, correct_indexes[0])
 
-				#checks if this is a new card to add to the deck or an existing card being edited
+		#checks if this is a new card to add to the deck or an existing card being edited
         if self.current_card_index is not None:
             self.deck.cards[self.current_card_index] = card
         else:
@@ -144,9 +144,12 @@ class DeckBuilder(QWidget):
             QMessageBox.warning(self, "Missing Deck Name", "Please name your deck.")
             return
         self.deck.name = name
-        # Normally save deck to file/db here
-        QMessageBox.information(self, "Deck Saved", f"Deck '{name}' with {len(self.deck)} cards saved!")
-        self.app.go_to_main_menu()
+        try:
+            self.deck.save_to_file()
+            QMessageBox.information(self, "Deck Saved", f"Deck '{name}' with {len(self.deck)} cards saved!")
+            self.app.go_to_main_menu()
+        except Exception as e:
+            QMessageBox.warning(self, "Error", f"Failed to save deck: {str(e)}")
 
     def reset_ui(self):
         self.deck = Deck()

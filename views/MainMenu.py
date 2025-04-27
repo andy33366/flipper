@@ -22,7 +22,7 @@ class MainMenu(QWidget):
 
         # Button to go to quiz (you'd load real decks in a real app)
         quiz_button = QPushButton("Take a Quiz")
-        quiz_button.clicked.connect(lambda: self.app.go_to_quiz_player(None))  # None placeholder
+        quiz_button.clicked.connect(self.app.go_to_deck_selection)
         layout.addWidget(quiz_button)
 
         self.setLayout(layout)
