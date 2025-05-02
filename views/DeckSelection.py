@@ -46,10 +46,14 @@ class DeckSelection(QWidget):
             btn.clicked.connect(lambda checked, f=filename: self.load_deck(f))
             self.layout.addWidget(btn)
 
-		#loads deck and goes to quiz player
+	#loads deck and goes to quiz player or host lobby based on isMultiPlayer variable 
     def load_deck(self, filename):
         try:
             deck = Deck.load_from_file(filename)
-            self.app.go_to_quiz_player(deck)
+            if self.app.isMultiPlayer:
+                #goes to the lobby as host
+                self.app.go_to_lobby(deck)
+            else:
+                self.app.go_to_quiz_player(deck)
         except Exception as e:
             QMessageBox.warning(self, "Error", f"Failed to load deck: {str(e)}")

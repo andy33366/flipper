@@ -27,7 +27,8 @@ class MainMenu(QWidget):
 
         # Button to host a multiplayer game
         host_button = QPushButton("Start a Game")
-        host_button.clicked.connect(self.app.go_to_deck_selection)
+        #sets multiplayer to true and goes to deck selection screen
+        host_button.clicked.connect(lambda: (self.app.set_multiplayer(True), self.app.go_to_deck_selection()))
         layout.addWidget(host_button)
 
         # BUtton to join a multiplayer game

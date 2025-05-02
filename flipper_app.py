@@ -14,6 +14,10 @@ class FlipperApp(QStackedWidget):
     def __init__(self):
         super().__init__()
 
+        # If game is single or multiplayer
+        self.isMultiPlayer = False
+        self.isHost = False
+
         # Initialize different screens/widgets
         self.main_menu = MainMenu(self)
         self.deck_builder = DeckBuilder(self)
@@ -30,6 +34,9 @@ class FlipperApp(QStackedWidget):
 
         self.setCurrentWidget(self.main_menu)
 
+    def set_multiplayer(self, b):
+        self.isMultiPlayer = b
+
     def go_to_main_menu(self):
         self.setCurrentWidget(self.main_menu)
 
@@ -43,6 +50,7 @@ class FlipperApp(QStackedWidget):
 
     def go_to_deck_selection(self):
         self.deck_selection.refresh_decks()
+
         self.setCurrentWidget(self.deck_selection)
 
     def go_to_game_selection(self):

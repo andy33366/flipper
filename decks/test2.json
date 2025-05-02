@@ -1,0 +1,25 @@
+{
+    "name": "test2",
+    "cards": [
+        {
+            "question": "How many fingers does a dog have?",
+            "choices": [
+                "7",
+                "2",
+                "0",
+                "Dogs have hands not fingers",
+                "9"
+            ],
+            "answer_index": 3
+        },
+        {
+            "question": "WHat is your name",
+            "choices": [
+                "none",
+                "miguel",
+                "andy"
+            ],
+            "answer_index": 1
+        }
+    ]
+}
