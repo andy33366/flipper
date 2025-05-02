@@ -25,4 +25,16 @@ class MainMenu(QWidget):
         quiz_button.clicked.connect(self.app.go_to_deck_selection)
         layout.addWidget(quiz_button)
 
+        # Button to host a multiplayer game
+        host_button = QPushButton("Start a Game")
+        host_button.clicked.connect(self.app.go_to_deck_selection)
+        layout.addWidget(host_button)
+
+        # BUtton to join a multiplayer game
+        join_button = QPushButton("Join a Game")
+        #TO DO : make go_to_game_selection
+        join_button.clicked.connect(self.app.go_to_game_selection)
+        layout.addWidget(join_button)
+
+
         self.setLayout(layout)
