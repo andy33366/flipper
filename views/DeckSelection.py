@@ -51,8 +51,9 @@ class DeckSelection(QWidget):
         try:
             deck = Deck.load_from_file(filename)
             if self.app.isMultiPlayer:
-                #goes to the lobby as host
-                self.app.go_to_lobby(deck)
+                #goes to the host lobby and sends deck to server.py
+                self.app.go_to_lobby()
+                self.app.start_server(deck)
             else:
                 self.app.go_to_quiz_player(deck)
         except Exception as e:

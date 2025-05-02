@@ -8,7 +8,10 @@ from views.DeckBuilder import DeckBuilder
 from views.QuizPlayer import QuizPlayer
 from views.DeckSelection import DeckSelection
 from views.GameSelection import GameSelection
-
+from views.Lobby import Lobby
+#from multiplayer.server import server
+#from multiplayer.client import client
+#from multiplayer.protocol import protocol
 
 class FlipperApp(QStackedWidget):
     def __init__(self):
@@ -24,6 +27,7 @@ class FlipperApp(QStackedWidget):
         self.quiz_player = QuizPlayer(self)
         self.deck_selection = DeckSelection(self)
         self.game_selection = GameSelection(self)
+        self.lobby = Lobby(self)
 
         # Add to stacked widget and set index
         self.addWidget(self.main_menu)       # index 0
@@ -31,6 +35,7 @@ class FlipperApp(QStackedWidget):
         self.addWidget(self.quiz_player)     # index 2
         self.addWidget(self.deck_selection)  # index 3
         self.addWidget(self.game_selection)  # index 4
+        self.addWidget(self.Lobby)           # index 5
 
         self.setCurrentWidget(self.main_menu)
 
@@ -56,6 +61,14 @@ class FlipperApp(QStackedWidget):
     def go_to_game_selection(self):
         #self.game_selection.
         self.setCurrentWidget(self.game_selection)
+
+    def start_server(self):
+        # figure this out
+        pass
+
+    def start_client(self):
+        #figure this out
+        pass
 
 
 if __name__ == "__main__":
