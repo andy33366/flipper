@@ -1,12 +1,12 @@
 # views/Lobby.py
 # the waiting lobby for users to enter before the game begins
 
-from PyQt6.QtWidgets import Qwidget, QVBoxLayout, QPushButton, QLabel
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
 import asyncio
 import websockets
 
 class Lobby(QWidget):
-    def __init__(self, app, arg):
+    def __init__(self, app):
         super().__init__()
 
         layout = QVBoxLayout()
@@ -16,4 +16,3 @@ class Lobby(QWidget):
         title.setStyleSheet("font-size: 24px; fornt-weight: bold;")
         layout.addWidget(title)
 
-        # For testing : add a txt box where user can send txt to the server, see if the server returns the message

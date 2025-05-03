@@ -22,6 +22,9 @@ class GameSelection(QWidget):
         self.host_game_input.setPlaceholderText("Enter the IP address of the host")
         layout.addWidget(self.host_game_input)
 
-        # Go to lobby
+        # Button to attempt to join game (hardcoded rn for testing)
+        join_button = QPushButton("Join Game")
+        join_button.clicked.connect(lambda: (self.app.go_to_lobby(), self.app.start_client()))
+        layout.addWidget(join_button)
 
         self.setLayout(layout)

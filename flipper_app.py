@@ -9,9 +9,10 @@ from views.QuizPlayer import QuizPlayer
 from views.DeckSelection import DeckSelection
 from views.GameSelection import GameSelection
 from views.Lobby import Lobby
-#from multiplayer.server import server
-#from multiplayer.client import client
+from multiplayer.server import Server
+from multiplayer.client import Client
 #from multiplayer.protocol import protocol
+import threading
 
 class FlipperApp(QStackedWidget):
     def __init__(self):
@@ -35,7 +36,7 @@ class FlipperApp(QStackedWidget):
         self.addWidget(self.quiz_player)     # index 2
         self.addWidget(self.deck_selection)  # index 3
         self.addWidget(self.game_selection)  # index 4
-        self.addWidget(self.Lobby)           # index 5
+        self.addWidget(self.lobby)           # index 5
 
         self.setCurrentWidget(self.main_menu)
 
@@ -62,13 +63,24 @@ class FlipperApp(QStackedWidget):
         #self.game_selection.
         self.setCurrentWidget(self.game_selection)
 
-    def start_server(self):
+    def go_to_lobby(self):
+        self.setCurrentWidget(self.lobby)
+
+    def start_server(self, deck):
         # figure this out
-        pass
+        def start_server_thread():
+            self.server = Server(deck)
+            self.server.start()
+        threading.Thread(target=start_server_thread, daemon=True).start()
+
 
     def start_client(self):
         #figure this out
-        pass
+        def start_client_thread():
+            client = Client()
+            client.start()
+
+        threading.Thread(target=start_client_thread, daemon=True).start()
 
 
 if __name__ == "__main__":
