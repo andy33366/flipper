@@ -21,6 +21,7 @@ class FlipperApp(QStackedWidget):
         # If game is single or multiplayer
         self.isMultiPlayer = False
         self.isHost = False
+        self.deck = None
 
         # Initialize different screens/widgets
         self.main_menu = MainMenu(self)
@@ -64,12 +65,14 @@ class FlipperApp(QStackedWidget):
         self.setCurrentWidget(self.game_selection)
 
     def go_to_lobby(self):
+        self.lobby.update_ui()
         self.setCurrentWidget(self.lobby)
 
     def start_server(self, deck):
-        # figure this out
+        self.deck = deck
+        self.isHost = True
         def start_server_thread():
-            self.server = Server(deck)
+            self.server = Server(self.deck, self.lobby)
             self.server.start()
         threading.Thread(target=start_server_thread, daemon=True).start()
 
@@ -77,7 +80,7 @@ class FlipperApp(QStackedWidget):
     def start_client(self):
         #figure this out
         def start_client_thread():
-            client = Client()
+            client = Client(self)
             client.start()
 
         threading.Thread(target=start_client_thread, daemon=True).start()

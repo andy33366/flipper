@@ -6,17 +6,35 @@ import websockets
 from models.Card import Deck
 
 class Server():
-    def __init__(self, deck, host="localhost", port=8765):
+    def __init__(self, deck, lobby, host="localhost", port=8765):
         self.deck = deck
         self.host = host
         self.port = port
+        self.lobby = lobby
+        self.clients = set()
         
     async def handler(self, websocket):
         card = self.deck.get_card(0)
-        async for message in websocket:
-            print(f"message from client: {message}")
-            await websocket.send(f"hello, you said {message}")
+        self.clients.add(websocket)
+        self.lobby.players += 1
+        self.lobby.set_player_count(self.lobby.players)
+        await self.broadcast_player_count()
+        try:
+            async for message in websocket:
+                print(f"message from client: {message}")
+                await websocket.send(f"hello, you said {message}")
+        finally:
+            self.clients.remove(websocket)
+            self.lobby.players -= 1
+            self.lobby.set_player_count(self.lobby.players)
+            await self.broadcast_player_count()
 
+    async def broadcast_player_count(self):
+        for client in self.clients:
+            try:
+                await client.send(f"player_count:{self.lobby.players}")
+            except:
+                pass
     def start(self):
         '''
         loop = asyncio.new_event_loop()
